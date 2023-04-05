@@ -58,8 +58,8 @@ pipeline {
 					echo 'Downloading..Files...'
 						def files = sh(script: "git diff --name-only origin/uat..HEAD", returnStdout: true).trim().split('\n')
 						for (def file in files) {
-							echo $file
-							sh "curl -O -L $gitUrl/blob/uat/$file"
+							echo file
+							//sh "curl -O -L $gitUrl/blob/uat/$file"
 						}
 					}
 				}
