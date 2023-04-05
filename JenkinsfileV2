@@ -77,7 +77,7 @@ pipeline {
 					folderName: "${UIPATH_ORCH_FOLDER_NAME}",
 					orchestratorAddress: "${UIPATH_ORCH_URL}",
 					orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
-					packagePath: "C:\ProgramData\Jenkins\.jenkins\workspace\UiPath-Jenkins-CICD-003\Organization\Department\Project Number 001\UiPath-Jenkins-CICD-003-Demo.1.0.1.nupkg\\${env.BUILD_NUMBER}",
+					packagePath: "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\UiPath-Jenkins-CICD-003\\Organization\\Department\\Project Number 001\\UiPath-Jenkins-CICD-003-Demo.1.0.1.nupkg\\${env.BUILD_NUMBER}",
 					traceLevel: 'None'
 					)
 
