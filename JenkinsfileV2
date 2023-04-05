@@ -38,7 +38,7 @@ pipeline {
 	                echo "Building..with ${WORKSPACE}"
 	                UiPathPack (
 	                      outputPath: "Output\\${env.BUILD_NUMBER}",
-	                      projectJsonPath: "JenkinsV2",
+	                      projectJsonPath: "Demo.json",
 	                      //version: [$class: 'ManualVersionEntry', version: "${MAJOR}.${MINOR}.${env.BUILD_NUMBER}"],
 						  version: AutoVersion(),
 	                      useOrchestrator: false,
