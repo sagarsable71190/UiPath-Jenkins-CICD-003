@@ -37,16 +37,31 @@ pipeline {
 	        stage('Build') {
 	            steps {
 	                echo "Building..with ${WORKSPACE}"
-					powershell '''$files=$(git diff head~ --name-only)
-					echo $files'''
-					UIPATH_PACKAGE_PATH = $files(0)
-					echo UIPATH_PACKAGE_PATH
+					//powershell '''$files=$(git diff head~ --name-only)
+					//echo $files'''
+					//UIPATH_PACKAGE_PATH = $files(0)
+					//echo UIPATH_PACKAGE_PATH
 	            }
 	        }
 	         // Test Stages
 	        stage('Test') {
 	            steps {
 	                echo 'Testing..the workflow...'
+					
+
+			stage('Download Files') {
+				steps {
+					script {
+						def files = sh(script: "git diff --name-only origin/master..HEAD", returnStdout: true).trim().split('\n')
+						for (def file in files) {
+							echo $file
+							sh "curl -O -L $gitUrl/blob/master/$file"
+						}
+					}
+				}
+			}
+
+
 	            }
 	        }
 	
