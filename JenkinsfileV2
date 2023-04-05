@@ -24,7 +24,7 @@ pipeline {
 	                echo "Jenkins URL ${env.JENKINS_URL}"
 	                echo "Jenkins JOB Number ${env.BUILD_NUMBER}"
 	                echo "Jenkins JOB Name ${env.JOB_NAME}"
-	                echo "GitHub BranhName ${env.BRANCH_NAME}"
+	                echo "GitHub BranchName ${env.BRANCH_NAME}"
 	                checkout scm
 	
 
@@ -58,16 +58,7 @@ pipeline {
 	        stage('Deploy') {
 	            steps {
 	                echo "Deploying ${BRANCH_NAME}"
-	                //UiPathDeploy (
-	                //packagePath: "Output\\${env.BUILD_NUMBER}",
-	                //orchestratorAddress: "${UIPATH_ORCH_URL}",
-	                //orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
-	                //folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-	                //environments: 'DEV',
-	                //credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: 'APIUserKey']
-	                //credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'ade18b82-5a45-44f6-aa49-cf5083bfde84'), 
-					//traceLevel: 'None',
-					//entryPointPaths: 'Main.xaml'
+
 					
 					UiPathDeploy (
 					createProcess: true,
@@ -77,11 +68,11 @@ pipeline {
 					folderName: "${UIPATH_ORCH_FOLDER_NAME}",
 					orchestratorAddress: "${UIPATH_ORCH_URL}",
 					orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
-					packagePath: "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\UiPath-Jenkins-CICD-003\\Organization\\Department\\Project Number 001\\UiPath-Jenkins-CICD-003-Demo.1.0.1.nupkg\\${env.BUILD_NUMBER}",
+					packagePath: "${WORKSPACE}\\UiPath-Jenkins-CICD-003\\Organization\\Department\\Project Number 001\\UiPath-Jenkins-CICD-003-Demo.1.0.1.nupkg\\${env.BUILD_NUMBER}",
 					traceLevel: 'None'
 					)
 
-	        //)
+
 	            }
 	        }
 	
