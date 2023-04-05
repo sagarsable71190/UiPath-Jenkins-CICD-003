@@ -48,7 +48,10 @@ pipeline {
 	            steps {
 	                echo 'Testing..the workflow...'
 					
-
+	            }
+	        }
+			
+			
 			stage('Download Files') {
 				steps {
 					script {
@@ -62,8 +65,7 @@ pipeline {
 			}
 
 
-	            }
-	        }
+
 	
 
 	         // Deploy Stages
