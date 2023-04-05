@@ -11,6 +11,7 @@ pipeline {
 	        UIPATH_ORCH_LOGICAL_NAME = "https://ssuipathorchmultinode.eastus.cloudapp.azure.com/"
 	        UIPATH_ORCH_TENANT_NAME = "Default"
 	        UIPATH_ORCH_FOLDER_NAME = "Shared"
+			UIPATH_PACKAGE_PATH = ""
 	    }
 	
 
@@ -38,6 +39,8 @@ pipeline {
 	                echo "Building..with ${WORKSPACE}"
 					powershell '''$files=$(git diff head~ --name-only)
 					echo $files'''
+					UIPATH_PACKAGE_PATH = $files(0)
+					echo UIPATH_PACKAGE_PATH
 	            }
 	        }
 	         // Test Stages
