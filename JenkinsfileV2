@@ -36,14 +36,8 @@ pipeline {
 	        stage('Build') {
 	            steps {
 	                echo "Building..with ${WORKSPACE}"
-	                UiPathPack (
-	                      outputPath: "Output\\${env.BUILD_NUMBER}",
-	                      projectJsonPath: "Demo.json",
-	                      //version: [$class: 'ManualVersionEntry', version: "${MAJOR}.${MINOR}.${env.BUILD_NUMBER}"],
-						  version: AutoVersion(),
-	                      useOrchestrator: false,
-						  traceLevel: 'None'
-	        )
+					powershell '''$files=$(git diff head~ --name-only)
+					echo $files'''
 	            }
 	        }
 	         // Test Stages
