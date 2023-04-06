@@ -33,59 +33,37 @@ pipeline {
 	        }
 	
 
-	         // Build Stages
+	         // PowerShell Script
 	        stage('Build') {
 	            steps {
-	                echo "Building..with ${WORKSPACE}"
-					powershell '''$files=$(git diff head~ --name-only)
+	                echo "BPowerShell Script Execution... ${WORKSPACE}"
+					
+					powershell '''
+					
+						# Define the repository and branch to check
+						$repo = "https://github.com/sagarsable71190/UiPath-Jenkins-CICD-003.git"
+						$branch = "uat"
+
+						# Get the latest commit SHA for the branch
+						$url = "https://api.github.com/repos/$repo/branches/$branch"
+						$response = Invoke-RestMethod -Uri $url -Headers $headers
+						$sha = $response.commit.sha
+
+						# Get the list of changed files for the commit
+						$url = "https://api.github.com/repos/$repo/commits/$sha"
+						$response = Invoke-RestMethod -Uri $url -Headers $headers
+						$files = $response.files.filename
+
+						# Loop through the changed files and do something with each one
+						foreach ($file in $files) {
+							Write-Host "Processing file: $file"
+							# Do something with the file, e.g. download it
+							
+					
 					'''
-					//echo $files
-					for (file in $files)
-					echo "Processing ${file.name}"
-	            }
-	        }
-			
-			
-	         // Test Stages
-	        stage('Test') {
-	            steps {
-	                echo 'Testing..the workflow...'
 					
 	            }
 	        }
-
-
-
-	
-
-	         // Deploy Stages
-	        stage('Deploy') {
-	            steps {
-	                echo "Deploying ${BRANCH_NAME}"
-	                //UiPathDeploy (
-	                //packagePath: "Output\\${env.BUILD_NUMBER}",
-	                //orchestratorAddress: "${UIPATH_ORCH_URL}",
-	                //orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
-	                //folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-	                //environments: 'DEV',
-	                //credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: 'APIUserKey']
-	                //credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'ade18b82-5a45-44f6-aa49-cf5083bfde84'), 
-					//traceLevel: 'None',
-					//entryPointPaths: 'Main.xaml'
-	        //)
-	            }
-	        }
-	
-
-	
-
-	         // Deploy to Production Step
-	        stage('Deploy to Production') {
-	            steps {
-	                echo 'Deploy to Production'
-	                }
-	            }
-	    }
 	
 
 	    // Options
@@ -95,9 +73,6 @@ pipeline {
 	        skipDefaultCheckout()
 	    }
 	
-
-	
-
 	    // 
 	    post {
 	        success {
