@@ -11,7 +11,6 @@ pipeline {
 	        UIPATH_ORCH_LOGICAL_NAME = "https://ssuipathorchmultinode.eastus.cloudapp.azure.com/"
 	        UIPATH_ORCH_TENANT_NAME = "Default"
 	        UIPATH_ORCH_FOLDER_NAME = "Shared"
-			UIPATH_PACKAGE_PATH = ""
 	    }
 	
 
@@ -25,14 +24,13 @@ pipeline {
 	                echo "Jenkins URL ${env.JENKINS_URL}"
 	                echo "Jenkins JOB Number ${env.BUILD_NUMBER}"
 	                echo "Jenkins JOB Name ${env.JOB_NAME}"
-	                echo "GitHub BranhName ${env.BRANCH_NAME}"
+	                echo "GitHub BranchName ${env.BRANCH_NAME}"
 	                checkout scm
 	
 
 	            }
 	        }
 	
-
 	         // PowerShell Script
 	        stage('Build') {
 	            steps {
@@ -55,14 +53,17 @@ pipeline {
 						$files = $response.files.filename
 
 						# Loop through the changed files and do something with each one
-						foreach ($file in $files) {
+						foreach ($file in $files)
 							Write-Host "Processing file: $file"
 							# Do something with the file, e.g. download it
 							
 					
-					'''
+						'''
+				}		
 					
-	        }
+			}
+	
+	    }
 	
 
 	    // Options
@@ -72,6 +73,9 @@ pipeline {
 	        skipDefaultCheckout()
 	    }
 	
+
+	
+
 	    // 
 	    post {
 	        success {
